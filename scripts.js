@@ -5,12 +5,13 @@ let matches = books;
 
 const starting = document.createDocumentFragment();
 
-for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
-  const element = document.createElement("button");
-  element.classList = "preview";
-  element.setAttribute("data-preview", id);
 
-  function previewButton 
+
+
+  function previewButton (author , id ,image , title)
+   const element = document.createElement("button")
+   element.classList = "preview";
+   element.setAttribute("data-preview", id);
   element.innerHTML = `
         <img
             class="preview__image"
