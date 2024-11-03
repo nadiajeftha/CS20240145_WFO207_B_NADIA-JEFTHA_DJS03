@@ -49,8 +49,8 @@ for (const [id, name] of Object.entries(data)) {
 
 document.querySelector(optionSelector).appendChild(fragment);
 
-optionsGenerator([data-search-genres]  , All Genres , genres)
-optionsGenerator([data-search-authors]  , All Authors , authors)
+optionsGenerator("[data-search-genres]"  , "All Genres" , genres)
+optionsGenerator("[data-search-authors]" , "All Authors" , authors)
 
 const authorsHtml = document.createDocumentFragment();
 const firstAuthorElement = document.createElement("option");
