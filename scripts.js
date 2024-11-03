@@ -96,49 +96,51 @@ function optionsGenerator(optionSelector, defaultText, data) {
       document.querySelector("[data-setting-overlay]").open = false;
     });
 
-  document.querySelector("[data-list-button]").innerText = `Show more (${
-    books.length - BOOKS_PER_PAGE
-  })`;
-  document.querySelector("[data-list-button]").disabled =
-    matches.length - page * BOOKS_PER_PAGE > 0;
-
-  document.querySelector("[data-list-button]").innerHTML = `
+  function showMoreBtn() {
+    const remaining = matches.length * BOOKS_PER_PAGE;
+    const button = document.querySelector("[data-list-button]");
+    button.disabled = remaining < 1;
+    button.innerHTML = `
     <span>Show more</span>
-    <span class="list__remaining"> (${
-      matches.length - page * BOOKS_PER_PAGE > 0
-        ? matches.length - page * BOOKS_PER_PAGE
-        : 0
-    })</span>
+    <span class="list__remaining">
+     (${remaining > 0 ? remaining : 0})
+     </span>
 `;
+  }
+  showMoreBtn();
+
+  function toggleOverlay(selctor, isOpen) {
+    document.querySelector(selctor).open = isOpen;
+  }
 
   document
     .querySelector("[data-search-cancel]")
-    .addEventListener("click", () => {
-      document.querySelector("[data-search-overlay]").open = false;
-    });
+    .addEventListener("click", () =>
+      toggleOverlay("[data-search-overlay]", false)
+    );
 
   document
     .querySelector("[data-settings-cancel]")
-    .addEventListener("click", () => {
-      document.querySelector("[data-settings-overlay]").open = false;
-    });
+    .addEventListener("click", () =>
+      toggleOverlay("[data-settings-overlay]", false)
+    );
 
   document
     .querySelector("[data-header-search]")
     .addEventListener("click", () => {
-      document.querySelector("[data-search-overlay]").open = true;
+      toggleOverlay("[data-search-overlay]", true);
       document.querySelector("[data-search-title]").focus();
     });
-
   document
     .querySelector("[data-header-settings]")
-    .addEventListener("click", () => {
-      document.querySelector("[data-settings-overlay]").open = true;
-    });
-
-  document.querySelector("[data-list-close]").addEventListener("click", () => {
-    document.querySelector("[data-list-active]").open = false;
-  });
+    .addEventListener("click", () =>
+      toggleOverlay("[data-settings-overlay]", true)
+    );
+  document
+    .querySelector("[data-list-close]")
+    .addEventListener("click", () =>
+      toggleOverlay("[data-list-active]", false)
+    );
 
   document
     .querySelector("[data-settings-form]")
