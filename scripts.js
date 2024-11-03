@@ -26,26 +26,31 @@ function previewButton({ author, id, image, title }) {
 }
 
 for (const book of matches.slice(0, BOOKS_PER_PAGE)) {
-  const element = previewButton(book)
-  return.appendChild(element)
+  const element = previewButton(book);
+  starting.appendChild(element);
 }
 
 document.querySelector("[data-list-items]").appendChild(starting);
 
-const genreHtml = document.createDocumentFragment();
-const firstGenreElement = document.createElement("option");
-firstGenreElement.value = "any";
-firstGenreElement.innerText = "All Genres";
-genreHtml.appendChild(firstGenreElement);
 
-for (const [id, name] of Object.entries(genres)) {
-  const element = document.createElement("option");
-  element.value = id;
-  element.innerText = name;
-  genreHtml.appendChild(element);
+function optionsGenerator (optionSelector , defaultText, data) {
+const fragment = document.createDocumentFragment();
+const defaultOption = document.createElement("option");
+defaultOption.value = "any";
+defaultOption.innerText = defaultText;
+fragment.appendChild(defaultOption);
+
+for (const [id, name] of Object.entries(data)) {
+  const option = document.createElement("option");
+  option.value = id;
+  option.innerText = name;
+  fragment.appendChild(option);
 }
 
-document.querySelector("[data-search-genres]").appendChild(genreHtml);
+document.querySelector(optionSelector).appendChild(fragment);
+
+optionsGenerator([data-search-genres]  , All Genres , genres)
+optionsGenerator([data-search-authors]  , All Authors , authors)
 
 const authorsHtml = document.createDocumentFragment();
 const firstAuthorElement = document.createElement("option");
