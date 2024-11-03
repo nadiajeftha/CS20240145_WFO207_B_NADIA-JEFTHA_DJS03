@@ -5,13 +5,11 @@ let matches = books;
 
 const starting = document.createDocumentFragment();
 
+function previewButton({ author, id, image, title }) {
+  const element = document.createElement("button");
+  element.classList = "preview";
+  element.setAttribute("data-preview", id);
 
-
-
-  function previewButton (author , id ,image , title)
-   const element = document.createElement("button")
-   element.classList = "preview";
-   element.setAttribute("data-preview", id);
   element.innerHTML = `
         <img
             class="preview__image"
@@ -24,7 +22,12 @@ const starting = document.createDocumentFragment();
         </div>
     `;
 
-  starting.appendChild(element);
+  return element;
+}
+
+for (const book of matches.slice(0, BOOKS_PER_PAGE)) {
+  const element = previewButton(book)
+  return.appendChild(element)
 }
 
 document.querySelector("[data-list-items]").appendChild(starting);
@@ -72,14 +75,19 @@ if (
   document.documentElement.style.setProperty("--color-light", "255, 255, 255");
 }
 
-document.querySelector("[data-list-button]").innerText =
-  `Show more (${books.length - BOOKS_PER_PAGE})`;
+document.querySelector("[data-list-button]").innerText = `Show more (${
+  books.length - BOOKS_PER_PAGE
+})`;
 document.querySelector("[data-list-button]").disabled =
   matches.length - page * BOOKS_PER_PAGE > 0;
 
 document.querySelector("[data-list-button]").innerHTML = `
     <span>Show more</span>
-    <span class="list__remaining"> (${matches.length - page * BOOKS_PER_PAGE > 0 ? matches.length - page * BOOKS_PER_PAGE : 0})</span>
+    <span class="list__remaining"> (${
+      matches.length - page * BOOKS_PER_PAGE > 0
+        ? matches.length - page * BOOKS_PER_PAGE
+        : 0
+    })</span>
 `;
 
 document.querySelector("[data-search-cancel]").addEventListener("click", () => {
@@ -117,14 +125,14 @@ document
     if (theme === "night") {
       document.documentElement.style.setProperty(
         "--color-dark",
-        "255, 255, 255",
+        "255, 255, 255"
       );
       document.documentElement.style.setProperty("--color-light", "10, 10, 20");
     } else {
       document.documentElement.style.setProperty("--color-dark", "10, 10, 20");
       document.documentElement.style.setProperty(
         "--color-light",
-        "255, 255, 255",
+        "255, 255, 255"
       );
     }
 
@@ -177,7 +185,7 @@ document
 
     for (const { author, id, image, title } of result.slice(
       0,
-      BOOKS_PER_PAGE,
+      BOOKS_PER_PAGE
     )) {
       const element = document.createElement("button");
       element.classList = "preview";
@@ -204,7 +212,11 @@ document
 
     document.querySelector("[data-list-button]").innerHTML = `
         <span>Show more</span>
-        <span class="list__remaining"> (${matches.length - page * BOOKS_PER_PAGE > 0 ? matches.length - page * BOOKS_PER_PAGE : 0})</span>
+        <span class="list__remaining"> (${
+          matches.length - page * BOOKS_PER_PAGE > 0
+            ? matches.length - page * BOOKS_PER_PAGE
+            : 0
+        })</span>
     `;
 
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -216,7 +228,7 @@ document.querySelector("[data-list-button]").addEventListener("click", () => {
 
   for (const { author, id, image, title } of matches.slice(
     page * BOOKS_PER_PAGE,
-    (page + 1) * BOOKS_PER_PAGE,
+    (page + 1) * BOOKS_PER_PAGE
   )) {
     const element = document.createElement("button");
     element.classList = "preview";
@@ -267,8 +279,9 @@ document
       document.querySelector("[data-list-blur]").src = active.image;
       document.querySelector("[data-list-image]").src = active.image;
       document.querySelector("[data-list-title]").innerText = active.title;
-      document.querySelector("[data-list-subtitle]").innerText =
-        `${authors[active.author]} (${new Date(active.published).getFullYear()})`;
+      document.querySelector("[data-list-subtitle]").innerText = `${
+        authors[active.author]
+      } (${new Date(active.published).getFullYear()})`;
       document.querySelector("[data-list-description]").innerText =
         active.description;
     }
