@@ -10,6 +10,7 @@ for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
   element.classList = "preview";
   element.setAttribute("data-preview", id);
 
+  function previewButton 
   element.innerHTML = `
         <img
             class="preview__image"
